@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/chrome": "^0.0.287",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

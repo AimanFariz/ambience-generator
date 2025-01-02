@@ -1,20 +1,35 @@
-// app/page.tsx
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Page = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Get settings (sound and play state) from background.js when page loads
+  useEffect(() => {
+    chrome.runtime.sendMessage({ action: 'getSettings' }, (response) => {
+      if (response) {
+        setIsPlaying(response.isPlaying);
+        // Optionally, update the audio source here based on `response.sound`
+      }
+    });
+  }, []);
+
+  // Toggle the sound state (play/pause)
   const toggleSound = () => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause(); // Pause the sound
+        audioRef.current.pause();
       } else {
-        audioRef.current.play(); // Play the sound
+        audioRef.current.play();
       }
       setIsPlaying(!isPlaying);
+
+      // Notify background.js of the state change (play/pause)
+      chrome.runtime.sendMessage({ action: 'toggleSound' }, (response) => {
+        setIsPlaying(response.isPlaying);
+      });
     }
   };
 
@@ -30,7 +45,7 @@ const Page = () => {
 
       {/* Audio element for ambient sound */}
       <audio ref={audioRef} loop>
-        <source src="/rain-sound.mp3" type="audio/mp3" />
+        <source src="/sounds/Anime.mp3" type="audio/mp3" />
         Your browser does not support the audio element.
       </audio>
     </div>
