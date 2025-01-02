@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Ambient Noise Generator",
+    "description": "Play ambient sounds like rain or coffee shop chatter while browsing.",
+    "version": "1.0",
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": "icon.png"
+    },
+    "icons": {
+      "48": "icon.png",
+      "128": "icon128.png"
+    },
+    "permissions": [],
+    "host_permissions": [],
+    "background": {
+      "service_worker": "background.js"
+    }
+  }
+  
